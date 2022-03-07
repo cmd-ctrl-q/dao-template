@@ -14,28 +14,14 @@ contract GovernanceToken is ERC20Votes {
         ERC20("GovernanceToken", "GT")
         ERC20Permit("GovernanceToken")
     {
-        // mint the max supply (could mint partial)
         _mint(msg.sender, s_maxSupply);
     }
-
-    // Someone knows a hot proposal is coming up
-    // So they buy a ton of tokens and then after the vote,
-    // They dump it.
-
-    // Create snapshot of tokens everyone has at a certain block.
-    // Once a proposal goes through, must have to pick a snapshot of the past
-    // That we want to use.
-
-    // The functions below are overrides required by solidity
-    // The functions below are overrides required by Solidity.
 
     function _afterTokenTransfer(
         address from,
         address to,
         uint256 amount
     ) internal override(ERC20Votes) {
-        // also call the _afterTokenTransfer from the ERC20Votes
-        // This updates the snapshots, in order to know how many tokens are at each block.
         super._afterTokenTransfer(from, to, amount);
     }
 
